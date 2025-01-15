@@ -1,7 +1,3 @@
-/**
-* Create by Miguel Ángel López on 20/07/19
-**/
-
 #ifndef HAIER_ESP_HAIER_H
 #define HAIER_ESP_HAIER_H
 
