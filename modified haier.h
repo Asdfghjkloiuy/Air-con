@@ -1,43 +1,35 @@
-#ifndef HAIER_ESP_HAIER_H
-#define HAIER_ESP_HAIER_H
-
 #include "esphome.h"
 #include <string>
 
-using namespace esphome;
-using namespace esphome::climate;
-
-// Updated read offset
-
-#define MODE_OFFSET 			14
-#define MODE_MSK				0xF0
-	#define MODE_AUTO       	0x00
-	#define MODE_DRY			0x40
-	#define MODE_COOL			0x20
-	#define MODE_HEAT			0x80
-	#define MODE_FAN			0xC0
-#define FAN_MSK					0x0F
-	#define FAN_LOW	    		0x03
-	#define FAN_MID		  		0x02
-	#define FAN_HIGH	     	0x01
-	#define FAN_AUTO	   		0x05
+#define MODE_OFFSET 		14
+#define MODE_MSK			0xF0
+#define MODE_AUTO       		0x00
+#define MODE_DRY			0x40
+#define MODE_COOL			0x20
+#define MODE_HEAT			0x80
+#define MODE_FAN			0xC0
+#define FAN_MSK				0x0F
+#define FAN_LOW	    			0x03
+#define FAN_MID		  		0x02
+#define FAN_HIGH	     		0x01
+#define FAN_AUTO	   		0x05
 	
-#define HORIZONTAL_SWING_OFFSET		19
-	#define HORIZONTAL_SWING_CENTER 		0x00
-	#define HORIZONTAL_SWING_MAX_LEFT 		0x03
-	#define HORIZONTAL_SWING_LEFT 			0x04
-	#define HORIZONTAL_SWING_MAX_RIGHT 		0x06
-	#define HORIZONTAL_SWING_RIGHT 			0x05
-	#define HORIZONTAL_SWING_AUTO 			0x07
+#define HORIZONTAL_SWING_OFFSET	19
+#define HORIZONTAL_SWING_CENTER 	0x00
+#define HORIZONTAL_SWING_MAX_LEFT 	0x03
+#define HORIZONTAL_SWING_LEFT 		0x04
+#define HORIZONTAL_SWING_MAX_RIGHT 	0x06
+#define HORIZONTAL_SWING_RIGHT 		0x05
+#define HORIZONTAL_SWING_AUTO 		0x07
 	
-#define VERTICAL_SWING_OFFSET			13
-	#define VERTICAL_SWING_MAX_UP			0x02
-	#define VERTICAL_SWING_UP				0x04
-	#define VERTICAL_SWING_CENTER				0x06
-	#define VERTICAL_SWING_DOWN				0x08
-	#define VERTICAL_SWING_HEALTH_UP			0x01
-	#define VERTICAL_SWING_HEALTH_DOWN		0x03
-	#define VERTICAL_SWING_AUTO 				0x0C
+#define VERTICAL_SWING_OFFSET	13
+#define VERTICAL_SWING_MAX_UP		0x02
+#define VERTICAL_SWING_UP		0x04
+#define VERTICAL_SWING_CENTER		0x06
+#define VERTICAL_SWING_DOWN		0x08
+#define VERTICAL_SWING_HEALTH_UP	0x01
+#define VERTICAL_SWING_HEALTH_DOWN	0x03
+#define VERTICAL_SWING_AUTO 			0x0C
 
 #define TEMPERATURE_OFFSET   	22
 
@@ -62,14 +54,11 @@ using namespace esphome::climate;
 
 // Updated read offset
 
-
-
 #define FRESH       			31
 	#define FRESH_ON    		1
 	#define FRESH_OFF   		0
 
 // Updated read offset
-
 
 #define COMMAND_OFFSET			9
 	#define RESPONSE_POLL		2
@@ -81,9 +70,7 @@ using namespace esphome::climate;
 	#define CTRL_POWER_ON		0x01
 	#define CTRL_POWER_OFF		0x00
 	
-	
 #define POLY 0xa001
-
 
 // temperatures supported by AC system
 #define MIN_SET_TEMPERATURE 16
@@ -102,9 +89,9 @@ private:
 	
 	byte initialization_1[13] = {0xFF,0xFF,0x0A,0x0,0x0,0x0,0x0,0x0,0x00,0x61,0x00,0x07,0x72};
 	byte initialization_2[13] = {0xFF,0xFF,0x08,0x40,0x0,0x0,0x0,0x0,0x0,0x70,0xB8,0x86,0x41};
- 	byte poll[15] = {0xFF,0xFF,0x0A,0x40,0x00,0x00,0x00,0x00,0x00,0x01,0x4D,0x01,0x99,0xB3,0xB4};
-    byte power_command[17]     = {0xFF,0xFF,0x0C,0x40,0x00,0x00,0x00,0x00,0x00,0x01,0x5D,0x01,0x00,0x01,0xAC,0xBD,0xFB};
-	byte control_command[25] = {0xFF,0xFF,0x14,0x40,0x00,0x00,0x00,0x00,0x00,0x01,0x60,0x01,0x09,0x08,0x25,0x00,0x02,0x00,0x00,0x06,0x00,0x00,0x03,0x0B,0x70};
+ 	byte poll[15] 		  = {0xFF,0xFF,0x0A,0x40,0x00,0x00,0x00,0x00,0x00,0x01,0x4D,0x01,0x99,0xB3,0xB4};
+ 	byte power_command[17]    = {0xFF,0xFF,0x0C,0x40,0x00,0x00,0x00,0x00,0x00,0x01,0x5D,0x01,0x00,0x01,0xAC,0xBD,0xFB};
+	byte control_command[25]  = {0xFF,0xFF,0x14,0x40,0x00,0x00,0x00,0x00,0x00,0x01,0x60,0x01,0x09,0x08,0x25,0x00,0x02,0x00,0x00,0x06,0x00,0x00,0x03,0x0B,0x70};
 
 	byte climate_mode_fan_speed = FAN_AUTO;
 	byte climate_mode_setpoint = 0x0A;
@@ -294,8 +281,7 @@ private:
 			control_command[STATUS_DATA_OFFSET] &= msk;
 		}
 	}
-	
-	
+		
 	void CompareStatusByte()
 	{
 		int i;
@@ -316,14 +302,11 @@ private:
 		}
 	}
 
-
 public:
 
     Haier() : PollingComponent(5 * 1000) {
         lastCRC = 0;
     }
-
-
     
     void setup() override {
         
@@ -385,7 +368,6 @@ public:
 
     void parseStatus() {
 
-
         auto raw = getHex(status, sizeof(status));
         ESP_LOGD("Haier", "Readed message ALBA: %s ", raw.c_str());
 
@@ -434,7 +416,6 @@ public:
 		
 		// Flag to enable modifications from UI as we now know the status of the A/C
 		first_status_received = true;
-
 		
 		// DEBUG DATA, uncomment what's needed
 		//ESP_LOGW("Debug", "HVAC Mode = 0x%X", GetHvacModeStatus());
@@ -449,8 +430,7 @@ public:
 		//ESP_LOGW("Debug", "Vertical Swing Status = 0x%X", GetVerticalSwingStatus());
 		//ESP_LOGW("Debug", "Set Point Status = 0x%X", GetTemperatureSetpointStatus());
 		CompareStatusByte();
-		
-		
+				
 		// Update home assistant component
 		
         if (GetPowerStatus() == false) {
@@ -504,10 +484,9 @@ public:
                         break;
                     default:
                         fan_mode = CLIMATE_FAN_AUTO;
-						
+					
                 }
             }				
-
 
 			// Check the status of the swings (vertical and horizontal and translate according component configuration
 			if( (GetHorizontalSwingStatus() == HORIZONTAL_SWING_AUTO) && (GetVerticalSwingStatus() == VERTICAL_SWING_AUTO) ){
@@ -528,12 +507,10 @@ public:
 
     }
 
-
     void control(const ClimateCall &call) override {
         ClimateMode new_mode;
 		bool new_control_cmd = false;
-		
-		
+				
 		ESP_LOGD("Control", "Control call");
 		
 		if(first_status_received == false){
@@ -692,10 +669,7 @@ public:
 			target_temperature = temp;
             this->publish_state();
 		}
-		
-		
    }
-
 
     void sendData(byte * message, byte size) {
         byte crc_offset = CRC_OFFSET(message);
@@ -715,7 +689,6 @@ public:
     }
 
     String getHex(byte * message, byte size) {
-
 		
         String raw;
 
@@ -726,8 +699,6 @@ public:
         raw.toUpperCase();
 
         return raw;
-
-
     }
 
     byte getChecksum(const byte * message, size_t size) {
@@ -745,7 +716,6 @@ public:
         return crc;
     }
 
-
     unsigned crc16(unsigned crc, unsigned char *buf, size_t len)
     {
         while (len--) {
@@ -761,9 +731,6 @@ public:
         }
         return crc;
     }
-
-
 };
-
 
 #endif //HAIER_ESP_HAIER_H
